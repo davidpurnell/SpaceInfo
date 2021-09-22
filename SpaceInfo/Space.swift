@@ -1,6 +1,8 @@
 //
 //  Space.swift
 //
+//  this functionality adapted from WhichSpace (https://github.com/gechr/WhichSpace)
+//
 
 import Foundation
 
