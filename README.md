@@ -13,7 +13,7 @@ I use this with Keyboard Maestro to manipulate windows across multiple spaces an
 --active-space
 --total-spaces
 
--v                      verbose output
+-v                 verbose output
 --version          Show the version.
 -h, --help         Show help information.
 
