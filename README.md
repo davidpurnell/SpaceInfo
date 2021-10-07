@@ -23,6 +23,6 @@ The functionality for pulling the relevant info is adapted from [WhichSpace](htt
 
 ## Installation
 
-- clone the repo
--  build with Xcode
+- download and unzip
+- place in a directory in your path
 
