@@ -13,7 +13,8 @@ I use this with Keyboard Maestro to manipulate windows across multiple spaces an
 --active-space
 --total-spaces
 
--v                 verbose output
+-d <d>             Restrict total spaces info to a specific display number
+-v                 Verbose output
 --version          Show the version.
 -h, --help         Show help information.
 
