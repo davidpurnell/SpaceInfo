@@ -22,12 +22,20 @@ class Space: NSObject {
         let displays = CGSCopyManagedDisplaySpaces(conn) as! [NSDictionary]
         let curDisplay = CGSCopyActiveMenuBarDisplayIdentifier(conn) as! String
         let allSpaces: NSMutableArray = []
-        var spaceCount: [Int] = []
+        
+        struct displayInfo {
+            var totalSpaces: Int
+            var firstSpace: Int
+            var lastSpace: Int
+        }
+        var theDisplays = [displayInfo]()
+        
         var activeSpaceID = -1
         var totalDisplays = 0
         var activeSpace = 0
         var activeDisplay = 0
         var theInfo = ""
+        
         for d in displays {
             totalDisplays += 1
             guard
@@ -37,7 +45,6 @@ class Space: NSObject {
                 else {
                     continue
             }
-            spaceCount.append(spaces.count)
 
             switch dispID {
             case mainDisplay, curDisplay:
@@ -54,12 +61,21 @@ class Space: NSObject {
                 }
                 allSpaces.add(s)
             }
+
+            theDisplays.append(displayInfo(totalSpaces: spaces.count, firstSpace: (spaces.first)?["ManagedSpaceID"] as! Int, lastSpace: (spaces.last)?["ManagedSpaceID"] as! Int))
         }
         let totalSpaces = allSpaces.count
         
         for (index, space) in allSpaces.enumerated() {
             let spaceID = (space as! NSDictionary)["ManagedSpaceID"] as! Int
             let spaceNumber = index + 1
+            for i in 0..<theDisplays.count {
+                if spaceID == theDisplays[i].firstSpace {
+                    theDisplays[i].firstSpace = spaceNumber
+                } else if spaceID == theDisplays[i].lastSpace {
+                    theDisplays[i].lastSpace = spaceNumber
+                }
+            }
             if spaceID == activeSpaceID {
                 activeSpace = spaceNumber
             }
@@ -74,11 +90,31 @@ class Space: NSObject {
         case "activeSpace":
             theInfo = verbose ? "active space: \(activeSpace)\n" : String(describing: activeSpace)
         case "totalSpaces":
-            if let theCount: Int = spaceCount[safe: display - 1] {
+            if let theCount: Int = theDisplays[safe: display - 1]?.totalSpaces {
                 theInfo = verbose ? "total spaces for display #\(display): \(theCount)\n" : String(describing: theCount)
             } else {
                 if display == 99 {
                     theInfo = verbose ? "total spaces: \(totalSpaces)\n" : String(describing: totalSpaces)
+                } else {
+                    theInfo = verbose ? "error: an invalid display index was specified\n" : String(describing: 0)
+                }
+            }
+        case "firstSpace":
+            if let theCount: Int = theDisplays[safe: display - 1]?.firstSpace {
+                theInfo = verbose ? "first space for display #\(display): \(theCount)\n" : String(describing: theCount)
+            } else {
+                if display == 99 {
+                    theInfo = verbose ? "first space: 1\n" : "1"
+                } else {
+                    theInfo = verbose ? "error: an invalid display index was specified\n" : String(describing: 0)
+                }
+            }
+        case "lastSpace":
+            if let theCount: Int = theDisplays[safe: display - 1]?.lastSpace {
+                theInfo = verbose ? "last space for display #\(display): \(theCount)\n" : String(describing: theCount)
+            } else {
+                if display == 99 {
+                    theInfo = verbose ? "last space: \(allSpaces.count)\n" : String(describing: allSpaces.count)
                 } else {
                     theInfo = verbose ? "error: an invalid display index was specified\n" : String(describing: 0)
                 }

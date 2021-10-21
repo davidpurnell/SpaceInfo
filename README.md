@@ -11,6 +11,8 @@ I use this with Keyboard Maestro to manipulate windows across multiple spaces an
 --active-display
 --total-displays
 --active-space
+--first-space
+--last-space
 --total-spaces
 
 -d <d>             Restrict total spaces info to a specific display number

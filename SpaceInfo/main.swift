@@ -7,13 +7,13 @@
 import ArgumentParser
 
 enum Flags: String, EnumerableFlag {
-    case activeDisplay, totalDisplays, activeSpace, totalSpaces
+    case activeDisplay, totalDisplays, activeSpace, firstSpace, lastSpace, totalSpaces
 }
 
 struct Spaceinfo: ParsableCommand {
     static var configuration: CommandConfiguration {
         .init(
-            version: "1.2.0"
+            version: "1.3.0"
         )
     }
     @Flag(help: " ") var options: [Flags] = []
