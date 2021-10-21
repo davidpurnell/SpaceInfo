@@ -6,18 +6,25 @@
 
 import Foundation
 
+extension Collection {
+    subscript(safe index: Index) -> Element? {
+        return indices.contains(index) ? self[index] : nil
+    }
+}
+
 @objc
 class Space: NSObject {
+    
     let mainDisplay = "Main"
     let conn = _CGSDefaultConnection()
 
-    @objc func SpaceInfo(info: String, verbose: Bool) -> String {
+    @objc func SpaceInfo(info: String, verbose: Bool, display: Int) -> String {
         let displays = CGSCopyManagedDisplaySpaces(conn) as! [NSDictionary]
         let curDisplay = CGSCopyActiveMenuBarDisplayIdentifier(conn) as! String
         let allSpaces: NSMutableArray = []
+        var spaceCount: [Int] = []
         var activeSpaceID = -1
         var totalDisplays = 0
-        var totalSpaces = 0
         var activeSpace = 0
         var activeDisplay = 0
         var theInfo = ""
@@ -30,6 +37,7 @@ class Space: NSObject {
                 else {
                     continue
             }
+            spaceCount.append(spaces.count)
 
             switch dispID {
             case mainDisplay, curDisplay:
@@ -40,7 +48,6 @@ class Space: NSObject {
             }
 
             for s in spaces {
-                totalSpaces += 1
                 let isFullscreen = s["TileLayoutManager"] as? [String: Any] != nil
                 if isFullscreen {
                     continue
@@ -48,7 +55,8 @@ class Space: NSObject {
                 allSpaces.add(s)
             }
         }
-
+        let totalSpaces = allSpaces.count
+        
         for (index, space) in allSpaces.enumerated() {
             let spaceID = (space as! NSDictionary)["ManagedSpaceID"] as! Int
             let spaceNumber = index + 1
@@ -66,7 +74,15 @@ class Space: NSObject {
         case "activeSpace":
             theInfo = verbose ? "active space: \(activeSpace)\n" : String(describing: activeSpace)
         case "totalSpaces":
-            theInfo = verbose ? "total spaces: \(totalSpaces)\n" : String(describing: totalSpaces)
+            if let theCount: Int = spaceCount[safe: display - 1] {
+                theInfo = verbose ? "total spaces for display #\(display): \(theCount)\n" : String(describing: theCount)
+            } else {
+                if display == 99 {
+                    theInfo = verbose ? "total spaces: \(totalSpaces)\n" : String(describing: totalSpaces)
+                } else {
+                    theInfo = verbose ? "error: an invalid display index was specified\n" : String(describing: 0)
+                }
+            }
         default: break
         }
         return theInfo

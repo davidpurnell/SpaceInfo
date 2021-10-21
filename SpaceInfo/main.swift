@@ -6,19 +6,20 @@
 //
 import ArgumentParser
 
-enum Option: String, EnumerableFlag {
+enum Flags: String, EnumerableFlag {
     case activeDisplay, totalDisplays, activeSpace, totalSpaces
 }
 
-struct SpaceInfo: ParsableCommand {
+struct Spaceinfo: ParsableCommand {
     static var configuration: CommandConfiguration {
         .init(
-            version: "1.1.2"
+            version: "1.2.0"
         )
     }
-    @Flag(help: " ") var options: [Option] = []
-    @Flag(name: .short, help: "verbose output") var verbose = false
-
+    @Flag(help: " ") var options: [Flags] = []
+    @Option(name: .short, help: "Restrict total spaces info to a specific display number") var display: Int?
+    @Flag(name: .short, help: "Verbose output") var verbose = false
+    
     mutating func validate() throws {
         if (options.isEmpty) {
           throw ValidationError("provide at least one switch\n")
@@ -32,13 +33,12 @@ struct SpaceInfo: ParsableCommand {
     func run() {
         //
         var theInfo = ""
-
         for i in options {
-            theInfo += Space().SpaceInfo(info: i.rawValue, verbose: verbose)
-            //print("option chosen: \(i) (verbose)")
+            theInfo += Space().SpaceInfo(info: i.rawValue, verbose: verbose, display: display ?? 99)
         }
+                
         print(verbose ? theInfo : separate(theValue: theInfo))
     }
 }
 
-SpaceInfo.main()
+Spaceinfo.main()
