@@ -13,7 +13,7 @@ enum Flags: String, EnumerableFlag {
 struct Spaceinfo: ParsableCommand {
     static var configuration: CommandConfiguration {
         .init(
-            version: "1.3.0"
+            version: "1.3.1"
         )
     }
     @Flag(help: " ") var options: [Flags] = []
