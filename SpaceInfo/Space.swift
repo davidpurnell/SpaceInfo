@@ -22,7 +22,7 @@ class Space: NSObject {
         let displays = CGSCopyManagedDisplaySpaces(conn) as! [NSDictionary]
         let curDisplay = CGSCopyActiveMenuBarDisplayIdentifier(conn) as! String
         let allSpaces: NSMutableArray = []
-        
+
         struct displayInfo {
             var totalSpaces: Int
             var firstSpace: Int
@@ -54,15 +54,19 @@ class Space: NSObject {
                 break
             }
 
+            let displaySpaces: NSMutableArray = []
+            
             for s in spaces {
                 let isFullscreen = s["TileLayoutManager"] as? [String: Any] != nil
                 if isFullscreen {
                     continue
                 }
+                
                 allSpaces.add(s)
+                displaySpaces.add(s)
             }
 
-            theDisplays.append(displayInfo(totalSpaces: spaces.count, firstSpace: (spaces.first)?["ManagedSpaceID"] as! Int, lastSpace: (spaces.last)?["ManagedSpaceID"] as! Int))
+            theDisplays.append(displayInfo(totalSpaces: displaySpaces.count, firstSpace: (displaySpaces.firstObject as! NSDictionary)["ManagedSpaceID"] as! Int, lastSpace: (displaySpaces.lastObject as! NSDictionary)["ManagedSpaceID"] as! Int))
         }
         let totalSpaces = allSpaces.count
         
