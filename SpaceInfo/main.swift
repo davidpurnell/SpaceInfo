@@ -7,7 +7,7 @@
 import ArgumentParser
 
 enum Flags: String, EnumerableFlag {
-    case activeDisplay, totalDisplays, activeSpace, firstSpace, lastSpace, totalSpaces
+    case activeDisplay, totalDisplays, activeSpace, firstSpace, lastSpace, totalSpaces, testing
 }
 
 struct Spaceinfo: ParsableCommand {

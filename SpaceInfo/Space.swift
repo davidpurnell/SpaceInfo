@@ -25,6 +25,8 @@ class Space: NSObject {
 
         struct displayInfo {
             var totalSpaces: Int
+            var firstSpaceID: Int
+            var lastSpaceID: Int
             var firstSpace: Int
             var lastSpace: Int
         }
@@ -65,18 +67,16 @@ class Space: NSObject {
                 allSpaces.add(s)
                 displaySpaces.add(s)
             }
-
-            theDisplays.append(displayInfo(totalSpaces: displaySpaces.count, firstSpace: (displaySpaces.firstObject as! NSDictionary)["ManagedSpaceID"] as! Int, lastSpace: (displaySpaces.lastObject as! NSDictionary)["ManagedSpaceID"] as! Int))
+            theDisplays.append(displayInfo(totalSpaces: displaySpaces.count, firstSpaceID: (displaySpaces.firstObject as! NSDictionary)["ManagedSpaceID"] as! Int, lastSpaceID: (displaySpaces.lastObject as! NSDictionary)["ManagedSpaceID"] as! Int, firstSpace: 0, lastSpace: 0))
         }
         let totalSpaces = allSpaces.count
-        
         for (index, space) in allSpaces.enumerated() {
             let spaceID = (space as! NSDictionary)["ManagedSpaceID"] as! Int
             let spaceNumber = index + 1
             for i in 0..<theDisplays.count {
-                if spaceID == theDisplays[i].firstSpace {
+                if spaceID == theDisplays[i].firstSpaceID {
                     theDisplays[i].firstSpace = spaceNumber
-                } else if spaceID == theDisplays[i].lastSpace {
+                } else if spaceID == theDisplays[i].lastSpaceID {
                     theDisplays[i].lastSpace = spaceNumber
                 }
             }
@@ -114,7 +114,8 @@ class Space: NSObject {
                 }
             }
         case "lastSpace":
-            if let theCount: Int = theDisplays[safe: display - 1]?.lastSpace {
+            if var theCount: Int = theDisplays[safe: display - 1]?.lastSpace {
+                theCount = theCount == 0 ? theDisplays[display - 1].firstSpace : theCount
                 theInfo = verbose ? "last space for display #\(display): \(theCount)\n" : String(describing: theCount)
             } else {
                 if display == 99 {
@@ -122,6 +123,13 @@ class Space: NSObject {
                 } else {
                     theInfo = verbose ? "error: an invalid display index was specified\n" : String(describing: 0)
                 }
+            }
+        case "testing":
+            if let theCount: Int = theDisplays[safe: display - 1]?.firstSpace {
+                theInfo = "first space for display #\(display): \(theCount)\n"
+            }
+            if let theCount2: Int = theDisplays[safe: display - 1]?.lastSpace {
+                theInfo += "last space for display #\(display): \(theCount2)\n"
             }
         default: break
         }
