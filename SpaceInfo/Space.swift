@@ -124,13 +124,6 @@ class Space: NSObject {
                     theInfo = verbose ? "error: an invalid display index was specified\n" : String(describing: 0)
                 }
             }
-        case "testing":
-            if let theCount: Int = theDisplays[safe: display - 1]?.firstSpace {
-                theInfo = "first space for display #\(display): \(theCount)\n"
-            }
-            if let theCount2: Int = theDisplays[safe: display - 1]?.lastSpace {
-                theInfo += "last space for display #\(display): \(theCount2)\n"
-            }
         default: break
         }
         return theInfo
