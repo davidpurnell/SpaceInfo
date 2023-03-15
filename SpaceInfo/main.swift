@@ -2,7 +2,7 @@
 //  main.swift
 //  SpaceInfo
 //
-//  Created by David Purnell on 8/20/21.
+//  Created by Dave on 8/20/21.
 //
 import ArgumentParser
 
@@ -13,7 +13,7 @@ enum Flags: String, EnumerableFlag {
 struct Spaceinfo: ParsableCommand {
     static var configuration: CommandConfiguration {
         .init(
-            version: "1.3.2"
+            version: "1.3.3"
         )
     }
     @Flag(help: " ") var options: [Flags] = []

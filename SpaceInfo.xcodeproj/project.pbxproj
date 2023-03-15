@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		55258E3326F4EDC300A7D703 /* ArgumentParser in Frameworks */ = {isa = PBXBuildFile; productRef = 55258E3226F4EDC300A7D703 /* ArgumentParser */; };
 		556981AA26CFFDE900A7D703 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556981A926CFFDE900A7D703 /* main.swift */; };
+		55CD246B29C21F4E00F8E550 /* Space.m in Sources */ = {isa = PBXBuildFile; fileRef = 55CD246A29C21F4E00F8E550 /* Space.m */; };
 		55FEB4F126F00A8100A7D703 /* Space.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FEB4F026F00A8100A7D703 /* Space.swift */; };
 /* End PBXBuildFile section */
 
@@ -28,6 +29,8 @@
 		556981A626CFFDE900A7D703 /* SpaceInfo */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = SpaceInfo; sourceTree = BUILT_PRODUCTS_DIR; };
 		556981A926CFFDE900A7D703 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		556981B026CFFE3600A7D703 /* header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = header.h; sourceTree = "<group>"; };
+		55CD246A29C21F4E00F8E550 /* Space.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Space.m; sourceTree = "<group>"; };
+		55CD246D29C220D000F8E550 /* SpaceInfo.profdata */ = {isa = PBXFileReference; lastKnownFileType = file; path = SpaceInfo.profdata; sourceTree = "<group>"; };
 		55FEB4F026F00A8100A7D703 /* Space.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Space.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -48,6 +51,7 @@
 			children = (
 				556981A826CFFDE900A7D703 /* SpaceInfo */,
 				556981A726CFFDE900A7D703 /* Products */,
+				55CD246C29C220D000F8E550 /* OptimizationProfiles */,
 			);
 			sourceTree = "<group>";
 		};
@@ -64,9 +68,18 @@
 			children = (
 				556981A926CFFDE900A7D703 /* main.swift */,
 				55FEB4F026F00A8100A7D703 /* Space.swift */,
+				55CD246A29C21F4E00F8E550 /* Space.m */,
 				556981B026CFFE3600A7D703 /* header.h */,
 			);
 			path = SpaceInfo;
+			sourceTree = "<group>";
+		};
+		55CD246C29C220D000F8E550 /* OptimizationProfiles */ = {
+			isa = PBXGroup;
+			children = (
+				55CD246D29C220D000F8E550 /* SpaceInfo.profdata */,
+			);
+			path = OptimizationProfiles;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -132,7 +145,7 @@
 /* Begin PBXShellScriptBuildPhase section */
 		55258E3526F50D7700A7D703 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 8;
 			files = (
 			);
 			inputFileListPaths = (
@@ -143,7 +156,7 @@
 			);
 			outputPaths = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
+			runOnlyForDeploymentPostprocessing = 1;
 			shellPath = /bin/sh;
 			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\ncp ${BUILT_PRODUCTS_DIR}/SpaceInfo ${PROJECT_DIR}/bin\n";
 		};
@@ -154,6 +167,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				55CD246B29C21F4E00F8E550 /* Space.m in Sources */,
 				55FEB4F126F00A8100A7D703 /* Space.swift in Sources */,
 				556981AA26CFFDE900A7D703 /* main.swift in Sources */,
 			);

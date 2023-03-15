@@ -1,11 +1,11 @@
 //
-//  Use this file to import your target's public headers that you would like to expose to Swift.
+//  header.h
 //
+
+#import <Foundation/Foundation.h>
 
 #ifndef header_h
 #define header_h
-
-#import <Foundation/Foundation.h>
 
 int _CGSDefaultConnection();
 id CGSCopyManagedDisplaySpaces(int conn);
