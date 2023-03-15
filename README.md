@@ -29,5 +29,5 @@ The functionality for pulling the relevant info is adapted from [WhichSpace](htt
 - download and unzip
 - place in a directory in your path
 
-As this binary is not signed you'll want to right-click -> open in Finder and then answer the scary "are you sure" question in the affirmative. 
+As this binary is not signed you'll want to first open it in Finder and then answer the scary "are you sure" question in the affirmative. Gatekeeper should then permit it to run subsequently.
 
